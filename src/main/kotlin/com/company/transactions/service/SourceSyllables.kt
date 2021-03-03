@@ -17,14 +17,6 @@ class SourceSyllables {
             return syllables[index]
         }
 
-        fun size(): Int = syllables.size
-
-        fun listaTabelaSilabas() {
-            for(key in syllables.keys) {
-                println("$key - ${syllables[key]}")
-            }
-        }
-
         private fun loadSyllables() {
             val lowerCaseAlphabetAsciiCode = 97..122
             val vowelsAsciiCode = arrayListOf(97, 101, 105, 111, 117)
