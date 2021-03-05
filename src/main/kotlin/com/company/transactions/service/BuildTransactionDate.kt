@@ -9,11 +9,14 @@ import java.time.temporal.TemporalAdjusters
 class BuildTransactionDate {
 
     fun getDate(month: Int, year: Int, transactionIndex: Int): Long {
-        val dateWithFirstDayMonth = LocalDate.of(year, month, 1)
+        val firstDay = 1
+        val maxWeek = 5
+
+        val dateWithFirstDayMonth = LocalDate.of(year, month, firstDay)
         val lastDayMonth = dateWithFirstDayMonth.with(TemporalAdjusters.lastDayOfMonth()).dayOfMonth
 
         val date = if(transactionIndex > lastDayMonth) {
-            val day = (lastDayMonth + transactionIndex) / 5
+            val day = (lastDayMonth + transactionIndex) / maxWeek
             LocalDate.of(year, month, day)
         } else {
             LocalDate.of(year, month, transactionIndex)
