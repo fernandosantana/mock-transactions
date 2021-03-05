@@ -1,8 +1,7 @@
 package com.company.transactions.service
 
 import org.springframework.stereotype.Service
-import java.time.LocalDate
-import java.time.ZoneId
+import java.time.*
 import java.time.temporal.TemporalAdjusters
 
 @Service
@@ -11,18 +10,20 @@ class BuildTransactionDate {
     fun getDate(month: Int, year: Int, transactionIndex: Int): Long {
         val firstDay = 1
         val maxWeek = 5
+        val defaultTime = LocalTime.of(12,0,0)
 
-        val dateWithFirstDayMonth = LocalDate.of(year, month, firstDay)
+        val dateWithFirstDayMonth = LocalDateTime.of(LocalDate.of(year, month, firstDay), defaultTime)
         val lastDayMonth = dateWithFirstDayMonth.with(TemporalAdjusters.lastDayOfMonth()).dayOfMonth
 
         val date = if(transactionIndex > lastDayMonth) {
             val day = (lastDayMonth + transactionIndex) / maxWeek
-            LocalDate.of(year, month, day)
+            LocalDateTime.of(LocalDate.of(year, month, day), defaultTime)
         } else {
-            LocalDate.of(year, month, transactionIndex)
+            LocalDateTime.of(LocalDate.of(year, month, transactionIndex), defaultTime)
         }
 
-        return date.atStartOfDay(ZoneId.systemDefault()).toInstant().epochSecond
+        //return date.toEpochDay()
+        return date.atZone(ZoneOffset.UTC).toEpochSecond()
     }
 
 
