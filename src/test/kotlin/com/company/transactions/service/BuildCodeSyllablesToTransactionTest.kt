@@ -18,7 +18,7 @@ class BuildCodeSyllablesToTransactionTest {
     }
 
     @Test
-    fun `must return code sillable list with space code - mean two words`() {
+    fun `must return code sillable list with length 5`() {
         val id = 100000
         val year = 2021
         val month = 10
@@ -26,6 +26,6 @@ class BuildCodeSyllablesToTransactionTest {
         val buildCodeSyllabes = BuildCodeSyllablesToTransaction()
         val codeSyllablesList = buildCodeSyllabes.getSyllables(id, year, month)
 
-        assertTrue(codeSyllablesList.contains(32))
+        assertEquals(5, codeSyllablesList.size)
     }
 }

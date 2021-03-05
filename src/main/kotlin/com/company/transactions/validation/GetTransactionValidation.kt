@@ -12,6 +12,7 @@ class GetTransactionValidation() : IValidation<GetTransactionDto> {
         flunt.hasMinValue(model.month, 1, "Month can't be less than 1")
         flunt.hasMaxValue(model.month, 12, "Month can't be bigger than 12")
         flunt.isNumberFixedLen(model.year, 4, "Year must be on format YYYY")
+        flunt.hasMinValue(model.year, 1970, "Min year is 1970")
 
         this.errors.addAll(flunt.getErrors())
         return flunt.isValid()
