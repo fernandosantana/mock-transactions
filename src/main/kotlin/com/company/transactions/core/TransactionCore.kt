@@ -26,7 +26,7 @@ class TransactionCore(
     private fun buildTransaction(buildTransactionDto: BuildTransactionDto): Transaction {
         val (id, year, month, codeSyllables, transactionIndex) = buildTransactionDto
 
-        val date = this.buildDate.getDate(month, year)
+        val date = this.buildDate.getDate(month, year, transactionIndex)
         val value = this.buildValue.getValue(id, month, transactionIndex)
         val description = this.buildDescription.getDescription(codeSyllables, transactionIndex)
 
@@ -34,7 +34,7 @@ class TransactionCore(
     }
 
     private fun totalTransactions(id: Int, month: Int): Int {
-        val firstDigit = id.toString()[0].toInt()
+        val firstDigit = id.toString()[0].toString().toInt()
         return firstDigit * month
     }
 }
